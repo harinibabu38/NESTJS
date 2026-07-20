@@ -1,36 +1,59 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post,Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
+
 import { TweetService } from './tweet.service';
-import { get } from 'http';
-import { CreateTweetdto, } from 'src/users/dtos/create.-tweet-dto';
-import { Tweet } from './tweet.entity';
+import { CreateTweetdto } from 'src/users/dtos/create.-tweet-dto';
 import { updatetweetdto } from 'src/users/dtos/update-tweet-dto';
+import { PaginationQueryDto } from '../common/pagination-query-dto';
+
+
 
 @Controller('tweet')
 export class TweetController {
-    constructor(private tweetService:TweetService ) {}
-        
-    
+  constructor(
+    private readonly tweetService: TweetService,
+  ) {}
 
-
-@Get(':userid')
-public GetTweets(@Param('userid',ParseIntPipe)userid:number){
-   return this.tweetService.getTweets(userid)
-}
-@Post()
-public CreateTweet(@Body() tweet:CreateTweetdto){
-    return this.tweetService.CreateTweet(tweet)
-}
-@Patch()
-public updatetweet(@Body()Tweet : updatetweetdto){ 
-    this.tweetService.updateTweet(Tweet);
+  @Get(':userid')
+public GetTweets(
+  @Param('userid', ParseIntPipe) userid: number,
+@Query() pagequerydto: PaginationQueryDto
+) {
+  return this.tweetService.getTweets(
+    userid,
+    pagequerydto,
+  );
 }
 
+  @Post()
+  public createTweet(
+    @Body() tweet: CreateTweetdto 
+  ) {
+    return this.tweetService.CreateTweet(tweet);
+  }
 
-@Delete(':id')
-public deletetweet(@Param('id',ParseIntPipe)id:number){
-   return this.tweetService.deleteTweet(id);
-}
+  @Patch()
+  public updateTweet(
+  @Body() tweet: updatetweetdto,
+  ) {
+    return this.tweetService.updateTweet(tweet);
+  }
 
+  @Delete(':id')
+  public deleteTweet(
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.tweetService.deleteTweet(id);
+  }
 }
 
 

@@ -1,0 +1,21 @@
+ import { Field, InputType } from '@nestjs/graphql';
+
+@InputType()
+export class CreateGameInput {
+  @Field()
+  id!: string;
+
+  @Field()
+  name!: string;
+
+  @Field()
+  genre!: string;
+}
+
+export class UpdateGameInput {
+  @Field({ nullable: true })
+  name?: string;
+
+  @Field({ nullable: true })
+  genre?: string;
+}

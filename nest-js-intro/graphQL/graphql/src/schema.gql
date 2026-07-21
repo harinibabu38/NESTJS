@@ -1,0 +1,31 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Game {
+  id: String!
+  name: String!
+  genre: String!
+}
+
+type Query {
+  getGames: [Game!]!
+  getGame(id: String!): Game
+}
+
+type Mutation {
+  createGame(input: CreateGameInput!): Game!
+  updateGame(id: String!, input: UpdateGameInput!): Game
+  deleteGame(id: String!): Boolean!
+}
+
+input CreateGameInput {
+  id: String!
+  name: String!
+  genre: String!
+}
+
+input UpdateGameInput {
+  name: String
+  genre: String
+}
